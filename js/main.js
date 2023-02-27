@@ -1,4 +1,4 @@
-const RandomValue = function(min, max) {
+const randomiseValue = function(min, max) {
   if (min >= 0) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -13,9 +13,9 @@ const RandomValue = function(min, max) {
   }
 };
 
-RandomValue(0, 25);
+randomiseValue(0, 25);
 
-const MaxLength = function(line, maxLength) {
+const verifyLength = function(line, maxLength) {
   if (line.length <= maxLength) {
     return true;
   } else {
@@ -23,6 +23,6 @@ const MaxLength = function(line, maxLength) {
   }
 };
 
-MaxLength('Some text', 26);
+verifyLength('Some text', 26);
 
 
