@@ -16,11 +16,7 @@ const randomiseValue = function(min, max) {
 randomiseValue(0, 25);
 
 const verifyLength = function(line, maxLength) {
-  if (line.length <= maxLength) {
-    return true;
-  } else {
-    return false;
-  }
+  return (line.length <= maxLength) ? true : false;
 };
 
 verifyLength('Some text', 26);
