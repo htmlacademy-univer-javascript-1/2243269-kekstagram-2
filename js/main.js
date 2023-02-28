@@ -16,7 +16,12 @@ const randomiseValue = function(min, max) {
 randomiseValue(0, 25);
 
 const verifyLength = function(line, maxLength) {
-  return (line.length <= maxLength) ? true : false;
+  //return (line.length <= maxLength) ? true : false; Почему на гитхабе ошибка при тернарной записи?
+  if (line.length <= maxLength) {
+    return true;
+  } else {
+    return false;
+  }   
 };
 
 verifyLength('Some text', 26);
