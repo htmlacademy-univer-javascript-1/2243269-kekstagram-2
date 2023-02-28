@@ -21,9 +21,7 @@ const verifyLength = function(line, maxLength) {
     return true;
   } else {
     return false;
-  }   
+  }
 };
 
 verifyLength('Some text', 26);
-
-
