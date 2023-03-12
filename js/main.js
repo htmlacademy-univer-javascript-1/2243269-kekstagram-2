@@ -42,7 +42,7 @@ const NAMES = [
   'Михаил',
 ];
 
-let PHOTO_DESCRIPTION = [
+const PHOTO_DESCRIPTION = [
   'Лучший отпуск.',
   'Путешевствия врдохновляют.',
   'Это была незабываемая поездка. Увидимся следующим летом, моя любовь.',
@@ -53,12 +53,10 @@ let PHOTO_DESCRIPTION = [
 
 const PHOTO_COUNT = 25;
 
-const getRandomArrayElement = (elements) => {
-  return elements[randomiseValue(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) =>  elements[randomiseValue(0, elements.length - 1)];
 
 const createUnique = (a,b) => {
-  let arr = [];
+  const arr = [];
   const total = b - a + 1;
   do {
     const randomNumber = randomiseValue(a,b);
@@ -69,48 +67,31 @@ const createUnique = (a,b) => {
   return arr;
 };
 
-const NUMBER_OF_COMMENTS = randomiseValue(1,2);
-
-const getComment = function() {
-  const COMMENT_LENGTH = 1;
-  let comment = getRandomArrayElement(COMMENTS);
-  for (let i = 1; i <= COMMENT_LENGTH - 1; i++) {
-    if(!comment.includes(COMMENTS[i])) {
-      comment += ' ' + getRandomArrayElement(COMMENTS);
-    }
-  }
-  return comment;
-};
-
-const getElement = (arr,k) => {
-  return arr[k];
-}
-let i = -1;
-const COMMENT_MESSAGE = Array.from({length: PHOTO_COUNT*NUMBER_OF_COMMENTS}, getComment);
+const getElement = (arr,k) => arr[k];
 
 const ArrOfValues = createUnique(1, PHOTO_COUNT);
-
+let numb = -1;
 const createComment = () => {
-  i+=1;
+  numb+=1;
   return {
-    id: getElement(ArrOfValues,i),
-    avatar: 'img/avatar-' + randomiseValue(1,6) + '.svg',
-    message: getRandomArrayElement(COMMENT_MESSAGE),
+    id: getElement(ArrOfValues,numb),
+    avatar: `img/avatar-${  randomiseValue(1,6)  }.svg`,
+    message: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES),
   };
 };
 
 const SIMILAR_COMMENT = Array.from({length: PHOTO_COUNT}, createComment);
 
-i=-1;
+numb=-1;
 let j = 25;
 const createPhoto = () => {
-  i+=1;
+  numb+=1;
   j-=1;
   createUnique(1,25);
   return {
-    id: getElement(ArrOfValues,i),
-    url: 'photos/' + getElement(ArrOfValues,j) + '.jpg',
+    id: getElement(ArrOfValues,numb),
+    url: `photos/${ getElement(ArrOfValues,j) }.jpg`,
     description: getRandomArrayElement(PHOTO_DESCRIPTION),
     likes: randomiseValue(15,200),
     comments: getRandomArrayElement(SIMILAR_COMMENT),
@@ -118,3 +99,7 @@ const createPhoto = () => {
 };
 
 const similarPhoto = Array.from({length: PHOTO_COUNT}, createPhoto);
+
+for (let i = 0; i <= similarPhoto.length; i++) {
+  getElement(similarPhoto,i);
+}
