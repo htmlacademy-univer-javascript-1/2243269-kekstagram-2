@@ -1,7 +1,6 @@
 import {similarPhoto} from './data.js';
-import { getElement } from './util.js';
-import './popup.js';
+import {addPhotoMin} from './minPhoto';
 
 for (let i = 0; 1 <= similarPhoto.length; i++) {
-  getElement(similarPhoto);
+  addPhotoMin(similarPhoto);
 }
