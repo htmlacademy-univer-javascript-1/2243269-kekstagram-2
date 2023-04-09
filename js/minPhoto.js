@@ -8,8 +8,8 @@ export function addPhotoMin(description) {
   for (const item of description) {
     const photo = photoTemplate.cloneNode(true).content;
     photo.querySelector('.picture__img').src = item.url;
-    photo.querySelector('.picture__img').addEventListener('click', (ev) => {
-      ev.preventDefault();
+    photo.querySelector('.picture__img').addEventListener('click', (evt) => {
+      evt.preventDefault();
       showBigPhoto(item);
     });
     photo.querySelector('.picture__likes').textContent = item.likes;

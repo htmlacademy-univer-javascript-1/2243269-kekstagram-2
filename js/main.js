@@ -1,6 +1,6 @@
 import {similarPhoto} from './data.js';
-import {addPhotoMin} from './minPhoto';
+import {addPhotoMin} from './minPhoto.js';
+import '/userForm.js';
+import '/validatePictForm.js';
 
-for (let i = 0; 1 <= similarPhoto.length; i++) {
-  addPhotoMin(similarPhoto);
-}
+addPhotoMin(similarPhoto);

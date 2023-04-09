@@ -22,8 +22,6 @@ const verifyLength = function(line, maxLength) {
   }
 };
 
-verifyLength('Some text', 26);
-
 const getRandomArrayElement = (elements) =>  elements[randomiseValue(0, elements.length - 1)];
 
 const createUnique = (a,b) => {
@@ -40,4 +38,7 @@ const createUnique = (a,b) => {
 
 const getElement = (arr,k) => arr[k];
 
-export {randomiseValue, getRandomArrayElement, createUnique, getElement};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {randomiseValue, getRandomArrayElement, createUnique, getElement, isEscapeKey, verifyLength};
