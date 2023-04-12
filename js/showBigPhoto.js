@@ -82,10 +82,6 @@ export function showBigPhoto(picture) {
   closeBigPhotoBut.addEventListener('click', onBigPhotoInChange);
 }
 
-const bigPhotoCansel = () => {
-  closeBigPhoto();
-};
-
 function closeBigPhoto() {
   if (document.body.classList.contains('modal-open') === false) {
     return;
@@ -95,7 +91,7 @@ function closeBigPhoto() {
 
   const closeBigPhotoBut = document.querySelector('#picture-cancel');
   document.removeEventListener('keydown', onBigPhotoEscKeydown);
-  closeBigPhotoBut.removeEventListener('click', bigPhotoCansel);
+  closeBigPhotoBut.removeEventListener('click', onBigPhotoInChange);
 
   bigPicture.value = null;
 }
