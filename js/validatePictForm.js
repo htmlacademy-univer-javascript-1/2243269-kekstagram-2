@@ -48,3 +48,10 @@ pictForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+const tagInput = document.querySelector('.text__hashtags');
+
+tagInput.onmouseover = function(evt) {
+
+  evt.stopPropagation();
+};
