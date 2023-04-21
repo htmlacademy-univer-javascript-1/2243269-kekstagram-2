@@ -1,7 +1,12 @@
-import {similarPhoto} from './data.js';
 import {addPhotoMin} from './minPhoto.js';
-import '/userForm.js';
-import '/validatePictForm.js';
-import '/changePhoto.js';
+import {setUserFormSubmit} from './userForm.js';
+import './validatePictForm.js';
+import './changePhoto.js';
+import {getData} from './serverConnection.js';
+import {closeBigPhoto} from './showBigPhoto.js';
 
-addPhotoMin(similarPhoto);
+getData((similarPhoto) => {
+  addPhotoMin(similarPhoto);
+});
+
+setUserFormSubmit(closeBigPhoto);
