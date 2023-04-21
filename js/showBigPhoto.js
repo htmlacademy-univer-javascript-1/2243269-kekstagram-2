@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util';
+import {isEscapeKey} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 
@@ -43,7 +43,7 @@ const onBigPhotoEscKeydown = (evt) => {
 };
 
 function createBigPhoto({url, likes, description, comments}) {
-  bigPicture.querySelector('.big-picture__img').src = url;
+  bigPicture.querySelector('.big-picture__img').children[0].src = url;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.comments-count').textContent = comments.length;
 
@@ -79,10 +79,10 @@ export function showBigPhoto(picture) {
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', onBigPhotoEscKeydown);
-  closeBigPhotoBut.addEventListener('click', onBigPhotoInChange);
+  closeBigPhotoBut.addEventListener('click', closeBigPhoto);
 }
 
-function closeBigPhoto() {
+export function closeBigPhoto() {
   if (document.body.classList.contains('modal-open') === false) {
     return;
   }

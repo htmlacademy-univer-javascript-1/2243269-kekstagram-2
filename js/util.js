@@ -9,12 +9,11 @@ const randomiseValue = (min, max) => {
     } else if (max === min) {
       return max;
     }
-    return Math.floor(Math.random()*(max-min+1))+min; //Подсмотрено здесь: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    return Math.floor(Math.random()*(max-min+1))+min;
   }
 };
 
 const verifyLength = function(line, maxLength) {
-  //return (line.length <= maxLength) ? true : false; Почему на гитхабе ошибка при тернарной записи?
   if (line.length <= maxLength) {
     return true;
   } else {
@@ -41,4 +40,23 @@ const getElement = (arr,k) => arr[k];
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {randomiseValue, getRandomArrayElement, createUnique, getElement, isEscapeKey, verifyLength};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+  alertContainer.style.opacity = 0.6;
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+};
+
+
+export {randomiseValue, getRandomArrayElement, createUnique, getElement, isEscapeKey, verifyLength, showAlert};

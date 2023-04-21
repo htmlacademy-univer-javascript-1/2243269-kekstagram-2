@@ -1,4 +1,4 @@
-import {verifyLength} from './utils.js';
+import {verifyLength} from './util.js';
 
 const pictForm = document.querySelector('#upload-select-image');
 
