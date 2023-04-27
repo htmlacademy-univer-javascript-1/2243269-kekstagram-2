@@ -40,7 +40,7 @@ const getElement = (arr,k) => arr[k];
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const showAlert = (message) => {
+const showAlert = (message, time, opacity) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
@@ -48,14 +48,18 @@ const showAlert = (message) => {
   alertContainer.style.top = '0';
   alertContainer.style.right = '0';
   alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
+  alertContainer.style.fontSize = '25px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = 'red';
-  alertContainer.style.opacity = 0.6;
+  alertContainer.style.opacity = opacity;
 
   alertContainer.textContent = message;
 
   document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, time);
 };
 
 function debounce (callback, timeoutDelay = 500) {

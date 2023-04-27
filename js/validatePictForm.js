@@ -18,6 +18,18 @@ const validateTag = (tagStr) => {
   }
 
   const re = /^#[a-zA-A0-9а-яА-Я]{1,19}$/;
+  const tagsArr = [];
+
+  for (const tag of tags) {
+    if (!tagsArr.includes(tag)) {
+      tagsArr.push(tag);
+    }
+  }
+
+  if (JSON.stringify(tagsArr) !== JSON.stringify(tags)) {
+    return false;
+  }
+
   return tags.every((tag) => re.test(tag)
   && verifyLength(tag, MAX_TAG_LENGTH));
 };
@@ -34,7 +46,7 @@ const pristine = new Pristine(pictForm,{
 pristine.addValidator(
   pictForm.querySelector('.text__hashtags'),
   validateTag,
-  'До 5 хеш-тегов, разделенных пробелом. После знака # допустимы только буквы и цифры. Хеш-тег не длинее 20 символов включая символ #.'
+  'До 5 не повторяющихся хеш-тегов, разделенных пробелом. После знака # допустимы только буквы и цифры. Хеш-тег не длинее 20 символов включая символ #.'
 );
 
 pristine.addValidator(
@@ -48,10 +60,3 @@ pictForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
-
-const tagInput = document.querySelector('.text__hashtags');
-
-tagInput.onmouseover = function(evt) {
-
-  evt.stopPropagation();
-};
