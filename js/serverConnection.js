@@ -10,7 +10,7 @@ const getData = (onSuccess) => {
       photoFilter.classList.remove('img-filters--inactive');
     })
     .catch(() => {
-      showAlert('Не удалось получить фотографии других пользователей(');
+      showAlert('Не удалось получить фотографии других пользователей(', 10**10, 0.6);
     });
 };
 
@@ -19,10 +19,6 @@ const sendData = (onSuccess, onFail, body) => {
     'https://26.javascript.pages.academy/kekstagram',
     {
       method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
       body,
     },
   )

@@ -3,7 +3,6 @@ const valueBigger = document.querySelector('.scale__control--bigger');
 const valueSmaller = document.querySelector('.scale__control--smaller');
 const redactedPhotoContainer = document.querySelector('.img-upload__preview');
 const redactedPhoto = redactedPhotoContainer.children[0];
-
 changedValue.value = '100%';
 
 function toMaxValue() {
@@ -75,11 +74,15 @@ function createSlider() {
     valueElement.value = sliderElement.noUiSlider.get();
   });
 }
+setNoneFilter();
 function setNoneFilter() {
   redactedPhoto.className = '';
+  redactedPhoto.style.filter = '';
   redactedPhoto.classList.add('effects__preview--none');
-  sliderElement.noUiSlider.destroy();
-  existSlider = false;
+  if (existSlider === true) {
+    sliderElement.noUiSlider.destroy();
+    existSlider = false;
+  }
 }
 function setSepiaFilter() {
   redactedPhoto.className = '';
@@ -183,3 +186,5 @@ chromeButton.addEventListener('change', setChromeFilter);
 marvinButton.addEventListener('change', setMarvinFilter);
 phobosButton.addEventListener('change', setPhobosFilter);
 heatButton.addEventListener('change', setHeatFilter);
+
+export {setNoneFilter};
