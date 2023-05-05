@@ -51,6 +51,8 @@ const onUploadPhotoEscKeydown = (evt) => {
 
 function openUploadOverlay() {
   changedValue.value = '100%';
+  redactedPhoto.style.height = '100%';
+  redactedPhoto.style.width = '100%';
   formOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
