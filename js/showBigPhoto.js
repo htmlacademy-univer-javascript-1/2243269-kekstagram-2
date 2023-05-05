@@ -1,8 +1,10 @@
 import {isEscapeKey} from './util.js';
 
-const bigPicture = document.querySelector('.big-picture');
-
 const AVATAR_PICT_SIZE = 35;
+let numberOfComments = 0;
+
+const bigPicture = document.querySelector('.big-picture');
+const showCommentsButton = document.querySelector('.social__comments-loader');
 
 function createAvatar(avatarUrl, userName) {
   const avatarPict = document.createElement('img');
@@ -49,7 +51,6 @@ function createBigPhoto({url, likes, description, comments}) {
   bigPicture.querySelector('.big-picture__img').children[0].src = url;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__comment-count').textContent = `${5} из ${comments.length} комментариев `;
-  //bigPicture.querySelector('.comments-count').textContent = comments.length;
   for (const comment of comments) {
     commentFragment.appendChild(createComments(comment));
   }
@@ -63,10 +64,8 @@ const onBigPhotoInChange = (evt) => {
     showBigPhoto();
   }
 };
-let numberOfComments = 0;
-const showCommentsButton = document.querySelector('.social__comments-loader');
 
-const showMoreComments = () => {
+function showMoreComments() {
   const allComments = bigPicture.querySelector('.social__comments');
   for (let i = 5 + numberOfComments; i < 10 + numberOfComments; i++) {
     if (i < allComments.childElementCount) {
@@ -83,9 +82,9 @@ const showMoreComments = () => {
   } else {
     document.querySelector('.social__comment-count').textContent = `${allComments.childElementCount} из ${allComments.childElementCount} комментариев `;
   }
-};
+}
 
-export function showBigPhoto(picture) {
+function showBigPhoto(picture) {
   if (document.body.classList.contains('modal-open')) {
     return;
   }
@@ -118,7 +117,7 @@ export function showBigPhoto(picture) {
   closeBigPhotoBut.addEventListener('click', closeBigPhoto);
 }
 
-export function closeBigPhoto() {
+function closeBigPhoto() {
   if (document.body.classList.contains('modal-open') === false) {
     return;
   }
@@ -133,10 +132,10 @@ export function closeBigPhoto() {
   numberOfComments = 0;
 }
 
+const onEscapePressed = (evt) => evt.key === 'Escape' && closeBigPhoto();
 
 bigPicture.addEventListener('change', onBigPhotoInChange);
-
-const escapePressed = (evt) => evt.key === 'Escape' && closeBigPhoto();
-document.addEventListener('keydown',(evt) => escapePressed(evt));
+document.addEventListener('keydown',(evt) => onEscapePressed(evt));
 bigPicture.querySelector('#picture-cancel').addEventListener('click', closeBigPhoto);
 
+export {closeBigPhoto, showBigPhoto};

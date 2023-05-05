@@ -1,10 +1,10 @@
 import {verifyLength} from './util.js';
 
-const pictForm = document.querySelector('#upload-select-image');
-
 const MAX_TAG_VALUE = 5;
 const MAX_TAG_LENGTH = 20;
-const MAX_COMMENT_LENGTH = 120;
+const MAX_COMMENT_LENGTH = 140;
+
+const pictForm = document.querySelector('#upload-select-image');
 
 const validateTag = (tagStr) => {
   if (tagStr.length === 0) {
@@ -23,6 +23,9 @@ const validateTag = (tagStr) => {
   for (const tag of tags) {
     if (!tagsArr.includes(tag)) {
       tagsArr.push(tag);
+    }
+    if (tag.includes('#') > 1) {
+      return false;
     }
   }
 
@@ -52,7 +55,7 @@ pristine.addValidator(
 pristine.addValidator(
   pictForm.querySelector('.text__description'),
   validateComment,
-  'Длина комментария не более 120 символов.'
+  'Длина комментария не более 140 символов.'
 );
 
 pictForm.addEventListener('submit', (evt) => {
@@ -60,3 +63,5 @@ pictForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export {pristine};
