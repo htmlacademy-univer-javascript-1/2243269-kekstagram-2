@@ -1,7 +1,6 @@
 import {renderDefaultList, setDiscussedOrder, setRandomOrder,SetDefaultOrder} from './minPhoto.js';
 import {setUserFormSubmit} from './userForm.js';
-import './validatePictForm.js';
-import './changePhoto.js';
+import './redactPhoto.js';
 import {getData} from './serverConnection.js';
 import {closeBigPhoto} from './showBigPhoto.js';
 

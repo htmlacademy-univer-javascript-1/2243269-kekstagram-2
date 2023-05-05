@@ -1,18 +1,3 @@
-const randomiseValue = (min, max) => {
-  if (min >= 0) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    if (max < min) {
-      const helper = min;
-      min = max;
-      max = helper;
-    } else if (max === min) {
-      return max;
-    }
-    return Math.floor(Math.random()*(max-min+1))+min;
-  }
-};
-
 const verifyLength = function(line, maxLength) {
   if (line.length <= maxLength) {
     return true;
@@ -20,23 +5,6 @@ const verifyLength = function(line, maxLength) {
     return false;
   }
 };
-
-const getRandomArrayElement = (elements) =>  elements[randomiseValue(0, elements.length - 1)];
-
-const createUnique = (a,b) => {
-  const arr = [];
-  const total = b - a + 1;
-  do {
-    const randomNumber = randomiseValue(a,b);
-    if (!arr.includes(randomNumber)) {
-      arr.push(randomNumber);
-    }
-  } while (arr.length < total);
-  return arr;
-};
-
-const getElement = (arr,k) => arr[k];
-
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -80,4 +48,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {randomiseValue, getRandomArrayElement, createUnique, getElement, isEscapeKey, verifyLength, showAlert, debounce};
+export {isEscapeKey, verifyLength, showAlert, debounce};

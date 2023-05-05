@@ -4,8 +4,8 @@ import {debounce} from './util.js';
 const photoContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture');
 
-const firstCild = photoContainer.children[0];
-const secondCild = photoContainer.children[1];
+const pictureTitle = photoContainer.children[0];
+const uploadForm = photoContainer.children[1];
 
 const defaultButton = document.querySelector('#filter-default');
 const randomButton = document.querySelector('#filter-random');
@@ -59,8 +59,8 @@ function renderDefaultList(description) {
     photoFragment.appendChild(photo);
   }
   photoContainer.innerHTML = '';
-  photoContainer.appendChild(firstCild);
-  photoContainer.appendChild(secondCild);
+  photoContainer.appendChild(pictureTitle);
+  photoContainer.appendChild(uploadForm);
   photoContainer.appendChild(photoFragment);
 }
 
@@ -82,8 +82,8 @@ function renderDiscussedList(similarPhotos) {
       photoFragment.appendChild(photo);
     });
   photoContainer.innerHTML = '';
-  photoContainer.appendChild(firstCild);
-  photoContainer.appendChild(secondCild);
+  photoContainer.appendChild(pictureTitle);
+  photoContainer.appendChild(uploadForm);
   photoContainer.appendChild(photoFragment);
 }
 
@@ -105,8 +105,8 @@ function renderRandomList(similarPhotos) {
       photoFragment.appendChild(photo);
     });
   photoContainer.innerHTML = '';
-  photoContainer.appendChild(firstCild);
-  photoContainer.appendChild(secondCild);
+  photoContainer.appendChild(pictureTitle);
+  photoContainer.appendChild(uploadForm);
   photoContainer.appendChild(photoFragment);
 }
 

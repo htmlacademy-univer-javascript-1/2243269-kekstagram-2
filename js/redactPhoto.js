@@ -3,6 +3,18 @@ const valueBigger = document.querySelector('.scale__control--bigger');
 const valueSmaller = document.querySelector('.scale__control--smaller');
 const redactedPhotoContainer = document.querySelector('.img-upload__preview');
 const redactedPhoto = redactedPhotoContainer.children[0];
+
+const originButton = document.querySelector('#effect-none');
+const sepiaButton = document.querySelector('#effect-sepia');
+const chromeButton = document.querySelector('#effect-chrome');
+const marvinButton = document.querySelector('#effect-marvin');
+const phobosButton = document.querySelector('#effect-phobos');
+const heatButton = document.querySelector('#effect-heat');
+
+const sliderElement = document.querySelector('.effect-level__slider');
+const valueElement = document.querySelector('.effect-level__value');
+
+let existSlider = false;
 changedValue.value = '100%';
 
 function toMaxValue() {
@@ -31,22 +43,6 @@ function toMinValue() {
   }
 }
 
-valueBigger.addEventListener('click', toMaxValue);
-valueSmaller.addEventListener('click', toMinValue);
-
-
-const originButton = document.querySelector('#effect-none');
-const sepiaButton = document.querySelector('#effect-sepia');
-const chromeButton = document.querySelector('#effect-chrome');
-const marvinButton = document.querySelector('#effect-marvin');
-const phobosButton = document.querySelector('#effect-phobos');
-const heatButton = document.querySelector('#effect-heat');
-
-const sliderElement = document.querySelector('.effect-level__slider');
-const valueElement = document.querySelector('.effect-level__value');
-
-let existSlider = false;
-
 function createSlider() {
   existSlider = true;
   noUiSlider.create(sliderElement, {
@@ -74,6 +70,7 @@ function createSlider() {
     valueElement.value = sliderElement.noUiSlider.get();
   });
 }
+
 setNoneFilter();
 function setNoneFilter() {
   redactedPhoto.className = '';
@@ -84,6 +81,7 @@ function setNoneFilter() {
     existSlider = false;
   }
 }
+
 function setSepiaFilter() {
   redactedPhoto.className = '';
   redactedPhoto.classList.add('effects__preview--sepia');
@@ -179,6 +177,9 @@ function setHeatFilter() {
     redactedPhoto.style.filter = ` brightness(${sliderElement.noUiSlider.get()})`;
   });
 }
+
+valueBigger.addEventListener('click', toMaxValue);
+valueSmaller.addEventListener('click', toMinValue);
 
 originButton.addEventListener('change', setNoneFilter);
 sepiaButton.addEventListener('change', setSepiaFilter);

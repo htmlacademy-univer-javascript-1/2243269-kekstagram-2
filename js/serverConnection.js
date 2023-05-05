@@ -20,6 +20,7 @@ const sendData = (onSuccess, onFail, body) => {
     {
       method: 'POST',
       body,
+      //тип  multipart/form-data пришлось убрать, поскольку с ним не удавалось отправить форму на сервер
     },
   )
     .then((response) => {

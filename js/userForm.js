@@ -1,7 +1,9 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, showAlert} from './util.js';
 import {sendData} from './serverConnection.js';
-import {setNoneFilter} from './changePhoto.js';
-import {showAlert} from './util.js';
+import {setNoneFilter} from './redactPhoto.js';
+import {pristine} from './validatePictForm.js';
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const photoForm = document.querySelector('.img-upload__form');
 const uploadedPhoto = photoForm.querySelector('#upload-file');
@@ -12,6 +14,24 @@ const formOverlay = document.querySelector('.img-upload__overlay');
 const redactedPhotoContainer = document.querySelector('.img-upload__preview');
 const redactedPhoto = redactedPhotoContainer.children[0];
 const changedValue = document.querySelector('.scale__control--value');
+
+const errorMessage = document.querySelector('#error');
+const errorWindow = errorMessage.cloneNode(true).content;
+const errorPlace = errorWindow.querySelector('.error');
+const errorFragment = document.createDocumentFragment();
+
+const errorButton = errorWindow.querySelector('.error__button');
+
+const successMessage = document.querySelector('#success');
+const successWindow = successMessage.cloneNode(true).content;
+const successPlace = successWindow.querySelector('.success');
+const successFragment = document.createDocumentFragment();
+
+const successButton = successWindow.querySelector('.success__button');
+
+const fileChooser = document.querySelector('.img-upload__start input[type=file]');
+const tagInput = document.querySelector('.text__hashtags');
+const commentInput = document.querySelector('.text__description');
 
 const onUploadPhotoInChange = (evt) => {
   if (evt.target.value) {
@@ -31,6 +51,8 @@ const onUploadPhotoEscKeydown = (evt) => {
 
 function openUploadOverlay() {
   changedValue.value = '100%';
+  redactedPhoto.style.height = '100%';
+  redactedPhoto.style.width = '100%';
   formOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
@@ -50,14 +72,6 @@ function closeUploadOverlay() {
   uploadedPhoto.blur();
 }
 
-uploadedPhoto.addEventListener('change', onUploadPhotoInChange);
-
-const pristine = new Pristine(photoForm, {
-  classTo: 'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper-text',
-});
-
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Публикую...';
@@ -68,13 +82,6 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-const errorMessage = document.querySelector('#error');
-const errorWindow = errorMessage.cloneNode(true).content;
-const errorPlace = errorWindow.querySelector('.error');
-const errorFragment = document.createDocumentFragment();
-
-const errorButton = errorWindow.querySelector('.error__button');
-
 const onEroorMessageEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -84,7 +91,6 @@ const onEroorMessageEscKeydown = (evt) => {
     changedValue.value = '100%';
   }
 };
-
 
 function closeErrorMessage() {
   document.body.classList.remove('modal-open');
@@ -99,7 +105,6 @@ function closeErrorMessage() {
 
   formOverlay.classList.remove('hidden');
 }
-
 
 const onSendFail = () => {
   formOverlay.classList.add('hidden');
@@ -116,13 +121,6 @@ const onSendFail = () => {
   upCansel.removeEventListener('click', closeUploadOverlay);
   document.removeEventListener('keydown', onUploadPhotoEscKeydown);
 };
-
-const successMessage = document.querySelector('#success');
-const successWindow = successMessage.cloneNode(true).content;
-const successPlace = successWindow.querySelector('.success');
-const successFragment = document.createDocumentFragment();
-
-const successButton = successWindow.querySelector('.success__button');
 
 const onSuccessMessageEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -167,29 +165,24 @@ const onSuccessMessage = () => {
 
   upCansel.removeEventListener('click', closeUploadOverlay);
   document.removeEventListener('keydown', onUploadPhotoEscKeydown);
+  const originButton = document.querySelector('#effect-none');
+  originButton.checked = true;
 };
-
-
-let error = '';
 
 function setUserFormSubmit(onSuccess) {
   photoForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    let isValid = pristine.validate();
-    if (error === 'error') {
-      isValid = true;
-    }
+
+    const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
       sendData(
         () => {
-          error = '';
           onSuccess();
           onSuccessMessage();
           unblockSubmitButton();
         },
         () => {
-          error = 'error';
           onSendFail();
           unblockSubmitButton();
         },
@@ -198,10 +191,8 @@ function setUserFormSubmit(onSuccess) {
     }
   });
 }
+uploadedPhoto.addEventListener('change', onUploadPhotoInChange);
 
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
-const fileChooser = document.querySelector('.img-upload__start input[type=file]');
 fileChooser.addEventListener('change', () => {
   const file = fileChooser.files[0];
   const fileName = file.name.toLowerCase();
@@ -216,17 +207,16 @@ fileChooser.addEventListener('change', () => {
   }
 });
 
-const tagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
-
 tagInput.addEventListener('click', (evt) => {
   evt.stopPropagation();
   document.removeEventListener('keydown', onUploadPhotoEscKeydown);
+  document.body.classList.add('modal-open');
 });
 
 commentInput.addEventListener('click', (evt) => {
   evt.stopPropagation();
   document.removeEventListener('keydown', onUploadPhotoEscKeydown);
+  document.body.classList.add('modal-open');
 });
 
 document.body.addEventListener('click', () => {
